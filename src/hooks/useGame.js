@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { GAME_STATUS } from '../utils/constants';
 import { shuffleCards } from '../utils/shuffle';
+import { playSound } from '../utils/sound';
 
-export function useGame(theme, difficulty) {
+export function useGame(theme, difficulty, isSoundEnabled) {
   const [cards, setCards] = useState([]);
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [matchedPairs, setMatchedPairs] = useState(0);
@@ -39,6 +40,7 @@ export function useGame(theme, difficulty) {
       return;
     }
 
+    playSound('flip', isSoundEnabled);
     const newFlippedIndices = [...flippedIndices, index];
     setFlippedIndices(newFlippedIndices);
     
@@ -58,6 +60,7 @@ export function useGame(theme, difficulty) {
 
       if (cards[firstIndex].icon === cards[secondIndex].icon) {
         // Match found
+        playSound('match', isSoundEnabled);
         setTimeout(() => {
           setCards((prev) => {
             const newCards = [...prev];
@@ -71,6 +74,7 @@ export function useGame(theme, difficulty) {
       } else {
         // No match
         setTimeout(() => {
+          playSound('wrong', isSoundEnabled);
           setCards((prev) => {
             const newCards = [...prev];
             newCards[firstIndex] = { ...newCards[firstIndex], isFlipped: false };
@@ -142,9 +146,10 @@ export function useGame(theme, difficulty) {
   // Check win condition
   useEffect(() => {
     if (matchedPairs === difficulty.pairs && difficulty.pairs > 0) {
+      playSound('win', isSoundEnabled);
       setStatus(GAME_STATUS.WON);
     }
-  }, [matchedPairs, difficulty.pairs]);
+  }, [matchedPairs, difficulty.pairs, isSoundEnabled]);
 
   return {
     cards,

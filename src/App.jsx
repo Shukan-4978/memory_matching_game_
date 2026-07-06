@@ -48,7 +48,7 @@ function App() {
     hint,
     shuffleRemaining,
     moveHistory
-  } = useGame(theme, difficulty);
+  } = useGame(theme, difficulty, isSoundEnabled);
 
   // Timer Hook
   const { time, formattedTime, resetTimer } = useTimer(

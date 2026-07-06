@@ -5,13 +5,25 @@ import { Sparkles } from 'lucide-react';
 export function Card({ card, onClick, disabled }) {
   const { icon, isFlipped, isMatched } = card;
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (!disabled) onClick();
+    }
+  };
+
   return (
     <div
+      role="button"
+      tabIndex={disabled ? -1 : 0}
+      aria-label={isFlipped || isMatched ? `Card shows ${icon}` : 'Unflipped card'}
+      aria-disabled={disabled}
       className={clsx(
-        'relative cursor-pointer perspective-1000 transition-transform hover:scale-105',
+        'relative cursor-pointer perspective-1000 transition-transform hover:scale-105 outline-none focus-visible:ring-4 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded-xl',
         disabled && 'pointer-events-none opacity-90'
       )}
       onClick={onClick}
+      onKeyDown={handleKeyDown}
       style={{ aspectRatio: '1/1' }}
     >
       <div
@@ -22,7 +34,7 @@ export function Card({ card, onClick, disabled }) {
         )}
       >
         {/* Front of Card (Face Down) */}
-        <div className="absolute w-full h-full backface-hidden glass rounded-xl flex items-center justify-center">
+        <div className="absolute w-full h-full backface-hidden glass rounded-xl flex items-center justify-center" aria-hidden="true">
           <Sparkles className="text-indigo-400 w-1/3 h-1/3 opacity-50" />
         </div>
 
@@ -32,6 +44,7 @@ export function Card({ card, onClick, disabled }) {
             'absolute w-full h-full backface-hidden rotate-y-180 rounded-xl flex items-center justify-center text-4xl sm:text-5xl md:text-6xl select-none',
             isMatched ? 'bg-green-100/80 dark:bg-green-900/50 border-2 border-green-400/50' : 'glass'
           )}
+          aria-hidden="true"
         >
           {icon}
           {isMatched && (
