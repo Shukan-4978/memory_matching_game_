@@ -28,7 +28,7 @@ export function useGame(theme, difficulty, isSoundEnabled) {
     initGame();
   }, [initGame]);
 
-  const handleCardClick = (index) => {
+  const handleCardClick = useCallback((index) => {
     // Prevent clicking if game not playing, paused, card already flipped/matched, or 2 cards already flipped
     if (
       status !== GAME_STATUS.PLAYING ||
@@ -85,9 +85,9 @@ export function useGame(theme, difficulty, isSoundEnabled) {
         }, 1000);
       }
     }
-  };
+  }, [status, isPaused, cards, flippedIndices, isSoundEnabled]);
 
-  const undoMove = () => {
+  const undoMove = useCallback(() => {
     if (moveHistory.length === 0 || flippedIndices.length > 0) return;
     
     const lastMove = moveHistory[moveHistory.length - 1];
@@ -105,10 +105,9 @@ export function useGame(theme, difficulty, isSoundEnabled) {
     });
     
     setMoveHistory((prev) => prev.slice(0, -1));
-    // Optionally we can subtract a move, but usually undo keeps the move count or adds penalty
-  };
+  }, [moveHistory, flippedIndices]);
 
-  const hint = () => {
+  const hint = useCallback(() => {
     // Briefly show all unmatched cards
     if (status !== GAME_STATUS.PLAYING || isPaused) return;
     
@@ -119,9 +118,9 @@ export function useGame(theme, difficulty, isSoundEnabled) {
         c.isMatched || flippedIndices.includes(i) ? c : { ...c, isFlipped: false }
       ));
     }, 1000);
-  };
+  }, [status, isPaused, flippedIndices]);
 
-  const shuffleRemaining = () => {
+  const shuffleRemaining = useCallback(() => {
     setCards((prev) => {
       const unmatched = prev.filter(c => !c.isMatched);
       // Shuffle unmatched
@@ -138,10 +137,10 @@ export function useGame(theme, difficulty, isSoundEnabled) {
       });
     });
     setFlippedIndices([]); // reset flipped if any
-  };
+  }, []);
 
-  const pauseGame = () => setIsPaused(true);
-  const resumeGame = () => setIsPaused(false);
+  const pauseGame = useCallback(() => setIsPaused(true), []);
+  const resumeGame = useCallback(() => setIsPaused(false), []);
 
   // Check win condition
   useEffect(() => {

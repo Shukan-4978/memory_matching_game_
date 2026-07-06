@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import clsx from 'clsx';
 import { Sparkles } from 'lucide-react';
 
-export function Card({ card, onClick, disabled }) {
+export const Card = React.memo(function Card({ card, index, onClick, disabled }) {
   const { icon, isFlipped, isMatched } = card;
 
-  const handleKeyDown = (e) => {
+  const handleClick = useCallback(() => {
+    if (!disabled) onClick(index);
+  }, [index, onClick, disabled]);
+
+  const handleKeyDown = useCallback((e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      if (!disabled) onClick();
+      if (!disabled) onClick(index);
     }
-  };
+  }, [index, onClick, disabled]);
 
   return (
     <div
@@ -22,7 +26,7 @@ export function Card({ card, onClick, disabled }) {
         'relative cursor-pointer perspective-1000 transition-transform hover:scale-105 outline-none focus-visible:ring-4 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded-xl',
         disabled && 'pointer-events-none opacity-90'
       )}
-      onClick={onClick}
+      onClick={handleClick}
       onKeyDown={handleKeyDown}
       style={{ aspectRatio: '1/1' }}
     >
@@ -41,7 +45,7 @@ export function Card({ card, onClick, disabled }) {
         {/* Back of Card (Face Up / Matched) */}
         <div
           className={clsx(
-            'absolute w-full h-full backface-hidden rotate-y-180 rounded-xl flex items-center justify-center text-4xl sm:text-5xl md:text-6xl select-none',
+            'absolute w-full h-full backface-hidden rotate-y-180 rounded-xl flex items-center justify-center text-3xl sm:text-4xl md:text-5xl select-none',
             isMatched ? 'bg-green-100/80 dark:bg-green-900/50 border-2 border-green-400/50' : 'glass'
           )}
           aria-hidden="true"
@@ -54,4 +58,4 @@ export function Card({ card, onClick, disabled }) {
       </div>
     </div>
   );
-}
+});

@@ -2,7 +2,7 @@ import React from 'react';
 import { Play, Pause, RotateCcw, Lightbulb, Undo2, Shuffle, LogOut } from 'lucide-react';
 import { GAME_STATUS } from '../utils/constants';
 
-export function Controls({ 
+export const Controls = React.memo(function Controls({ 
   status, 
   isPaused, 
   onPause, 
@@ -79,4 +79,4 @@ export function Controls({
       </div>
     </div>
   );
-}
+});

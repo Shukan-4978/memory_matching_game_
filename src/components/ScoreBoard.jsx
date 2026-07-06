@@ -1,7 +1,7 @@
 import React from 'react';
 import { Timer, Hash, Star } from 'lucide-react';
 
-export function ScoreBoard({ moves, formattedTime, score, bestScore, matchedPairs, totalPairs }) {
+export const ScoreBoard = React.memo(function ScoreBoard({ moves, formattedTime, score, bestScore, matchedPairs, totalPairs }) {
   return (
     <div className="w-full max-w-5xl mx-auto px-4 mt-6">
       <div className="glass rounded-2xl p-4 sm:p-6 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -54,4 +54,4 @@ export function ScoreBoard({ moves, formattedTime, score, bestScore, matchedPair
       </div>
     </div>
   );
-}
+});
