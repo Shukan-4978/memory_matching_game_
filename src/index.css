@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-color: #f3f4f6;
+    --text-color: #1f2937;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --card-border: rgba(255, 255, 255, 0.3);
+  }
+
+  .dark {
+    --bg-color: #111827;
+    --text-color: #f9fafb;
+    --card-bg: rgba(31, 41, 55, 0.7);
+    --card-border: rgba(255, 255, 255, 0.1);
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 transition-colors duration-300;
+    background: linear-gradient(135deg, #e0e7ff 0%, #ede9fe 100%);
+    min-height: 100vh;
+  }
+  
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-white/20 dark:border-gray-700/50 shadow-xl;
+  }
+  
+  .glass-card {
+    @apply bg-white/40 dark:bg-gray-700/40 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 shadow-lg;
+  }
+  
+  .btn-primary {
+    @apply px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed font-medium;
+  }
+  
+  .btn-secondary {
+    @apply px-4 py-2 bg-white/50 hover:bg-white/80 dark:bg-gray-800/50 dark:hover:bg-gray-800/80 text-indigo-700 dark:text-indigo-300 rounded-xl shadow-sm transition-all active:scale-95 border border-indigo-200 dark:border-indigo-800/50 font-medium backdrop-blur-sm;
+  }
+  
+  .btn-icon {
+    @apply p-2 bg-white/50 hover:bg-white/80 dark:bg-gray-800/50 dark:hover:bg-gray-800/80 text-gray-700 dark:text-gray-300 rounded-full shadow-sm transition-all active:scale-95 border border-gray-200 dark:border-gray-700/50 backdrop-blur-sm flex items-center justify-center;
+  }
+}
+
+/* Card 3D Flip Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 114, 128, 0.8);
+}
