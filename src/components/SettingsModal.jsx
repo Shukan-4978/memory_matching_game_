@@ -6,7 +6,7 @@ export function SettingsModal({ isOpen, onStart, currentTheme, currentDifficulty
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="glass rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl">
+      <div className="glass rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">Game Settings</h2>
         
         <div className="space-y-6">

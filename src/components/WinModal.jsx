@@ -33,7 +33,7 @@ export function WinModal({ isOpen, score, moves, formattedTime, onPlayAgain }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="glass rounded-3xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-100 animate-in zoom-in-95 duration-300">
+      <div className="glass rounded-3xl p-8 max-w-md w-full shadow-2xl transform transition-all scale-100 animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto">
         
         <div className="flex flex-col items-center text-center">
           <div className="w-20 h-20 bg-gradient-to-tr from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-orange-500/30">
